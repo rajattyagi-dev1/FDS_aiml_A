@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub API</title>
 </head>
 <body>
+    <div id="profile"></div>
 
-    <script src="demo1.js"></script>
+<script>
     
+async function loaduserDetails(username) {
+try {
+const url = `https://api.github.com/users/${username}`;
+
+const res = await fetch(url);
+
+const data = await res.json();
+
+console.log("Response:", data);
+
+document.getElementById("profile").innerHTML = `
+            <img src="${data.avatar_url}"><br>
+            <h2>${data.login}</h2>
+            <p><b>Username:</b> ${data.login}</p>
+            <p><b>Bio:</b> ${data.bio}</p>
+            <p><b>Followers:</b> ${data.followers}</p>
+            <p><b>Following:</b> ${data.following}</p>
+            <p><b>Public Repositories:</b> ${data.public_repos}</p>
+            <p><b>Location:</b> ${data.location}</p>
+            <p><b>Profile Link:</b>
+                <a href="${data.html_url}" target="_blank">
+                    ${data.html_url}
+                </a>
+            </p>
+        `;
+    }
+catch (err) {
+console.log("Error:", err);
+}
+}
+
+
+loaduserDetails("rajattyagi-dev1");
+</script>
+
 </body>
 </html>
