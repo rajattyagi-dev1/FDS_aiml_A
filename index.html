@@ -1,49 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GitHub API</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub API</title>
+  </head>
+
+  <body>
+    <h1>GitHub User Search</h1>
+
+    <input type="text" id="username" placeholder="Enter GitHub username" />
+    <button onclick="searchUser()">Search</button>
+
     <div id="profile"></div>
 
-<script>
-    
-async function loaduserDetails(username) {
-try {
-const url = `https://api.github.com/users/${username}`;
+    <script>
+      async function loaduserDetails(username) {
+        try {
+          const url = `https://api.github.com/users/${username}`;
 
-const res = await fetch(url);
+          const res = await fetch(url);
 
-const data = await res.json();
+          // Check if username exists
+          if (!res.ok) {
+            throw new Error("User not found");
+          }
 
-console.log("Response:", data);
+          const data = await res.json();
 
-document.getElementById("profile").innerHTML = `
-            <img src="${data.avatar_url}"><br>
-            <h2>${data.login}</h2>
-            <p><b>Username:</b> ${data.login}</p>
-            <p><b>Bio:</b> ${data.bio}</p>
-            <p><b>Followers:</b> ${data.followers}</p>
-            <p><b>Following:</b> ${data.following}</p>
-            <p><b>Public Repositories:</b> ${data.public_repos}</p>
-            <p><b>Location:</b> ${data.location}</p>
-            <p><b>Profile Link:</b>
-                <a href="${data.html_url}" target="_blank">
-                    ${data.html_url}
-                </a>
-            </p>
-        `;
-    }
-catch (err) {
-console.log("Error:", err);
-}
-}
+          console.log("Response:", data);
 
+          document.getElementById("profile").innerHTML = `
+                    <img src="${data.avatar_url}" width="150"><br>
 
-loaduserDetails("rajattyagi-dev1");
-</script>
+                    <h2>${data.login}</h2>
 
-</body>
+                    <p><b>Username:</b> ${data.login}</p>
+
+                    <p><b>Bio:</b> ${data.bio || "No bio available"}</p>
+
+                    <p><b>Followers:</b> ${data.followers}</p>
+
+                    <p><b>Following:</b> ${data.following}</p>
+
+                    <p><b>Public Repositories:</b> ${data.public_repos}</p>
+
+                    <p><b>Location:</b> ${data.location || "Not available"}</p>
+
+                    <p>
+                        <b>Profile Link:</b>
+                        <a href="${data.html_url}" target="_blank">
+                            ${data.html_url}
+                        </a>
+                    </p>
+                `;
+        } catch (err) {
+          console.log("Error:", err);
+
+          document.getElementById("profile").innerHTML = `
+                    <p style="color:red;">User not found!</p>
+                `;
+        }
+      }
+
+      function searchUser() {
+        const username = document.getElementById("username").value;
+
+        if (username.trim() === "") {
+          alert("Please enter a username");
+          return;
+        }
+
+        loaduserDetails(username);
+      }
+    </script>
+  </body>
 </html>
