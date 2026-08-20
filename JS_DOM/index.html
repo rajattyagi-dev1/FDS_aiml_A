@@ -3,23 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .card {
-        border: 2px solid aqua;
-        width: 200px;
-        height: 200px;
-        border-radius: 10px;
-        margin: 0 auto;
-      }
-      .img {
-        padding: 10px;
-      }
-    </style>
+    <title>React App using CDN</title>
   </head>
   <body>
-    <h1><center>Bookstore</center></h1>
+    <h1><center>Book Store</center></h1>
     <div id="root"></div>
   </body>
+
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+  ></script>
   <script src="./index.js"></script>
 </html>
