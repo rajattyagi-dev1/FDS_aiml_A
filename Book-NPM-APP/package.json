@@ -1,0 +1,16 @@
+{
+  "name": "book-npm-app",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Rajat Tyagi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}
